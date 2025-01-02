@@ -3,36 +3,39 @@ import { Card, CardContent } from "../components/ui/card";
 import { Input } from "../components/ui/input";
 import { Button } from "../components/ui/button";
 
-
 interface Comment {
   id: string;
   author: string;
   text: string;
+  postId: string;  // Adding postId to each comment
 }
 
 interface CommentSectionProps {
-  postId: string;
+  postId: string; // Post ID prop being passed
 }
 
 export default function CommentSection({ postId }: CommentSectionProps) {
-  const [comments, setComment] = useState<Comment[]>([]);
+  const [comments, setComments] = useState<Comment[]>([]);
   const [newComment, setNewComment] = useState("");
   const [authorName, setAuthorName] = useState("");
   const [editingCommentId, setEditingCommentId] = useState<string | null>(null);
 
+  // Handle adding a new comment with postId
   const handleAddComment = () => {
     if (newComment.trim() && authorName.trim()) {
       const newCommentObj: Comment = {
         id: new Date().toISOString(),
         author: authorName,
         text: newComment,
+        postId, // Use the passed postId here
       };
-      setComment([...comments, newCommentObj]);
+      setComments([...comments, newCommentObj]);
       setNewComment("");
       setAuthorName("");
     }
   };
 
+  // Handle editing a comment
   const handleEditComment = (commentID: string) => {
     const commentToEdit = comments.find((comment) => comment.id === commentID);
     if (commentToEdit) {
@@ -42,20 +45,22 @@ export default function CommentSection({ postId }: CommentSectionProps) {
     }
   };
 
+  // Save the edited comment
   const handleSavedEditedComment = () => {
     if (newComment.trim() && authorName.trim() && editingCommentId) {
-      const updatedComments = comments.map((comments) =>
-        comments.id === editingCommentId
-          ? { ...comments, text: newComment, author: authorName }
-          : comments
+      const updatedComments = comments.map((comment) =>
+        comment.id === editingCommentId
+          ? { ...comment, text: newComment, author: authorName }
+          : comment
       );
-      setComment(updatedComments);
+      setComments(updatedComments);
       setNewComment('');
       setAuthorName('');
       setEditingCommentId(null);
     }
   };
-  return(
+
+  return (
     <div className="mt-8">
       <h2 className="text-2xl font-semibold">Comments</h2>
 
@@ -64,45 +69,45 @@ export default function CommentSection({ postId }: CommentSectionProps) {
           comments.map((comment) => (
             <Card key={comment.id}>
               <CardContent className="p-4">
-                <div className="font-semibold"> {comment.author}</div>
+                <div className="font-semibold">{comment.author}</div>
                 <p>{comment.text}</p>
                 <Button
-                onClick={()=> handleEditComment(comment.id)}
-                className="mt-2 text-blue-500">
-                  Edit 
+                  onClick={() => handleEditComment(comment.id)}
+                  className="mt-2 text-blue-500"
+                >
+                  Edit
                 </Button>
               </CardContent>
-
             </Card>
           ))
         ) : (
-          <p className="text-slate-400"> No comments yet.</p>
-        )
-      }
+          <p className="text-slate-400">No comments yet.</p>
+        )}
       </div>
 
-
       <div className="mt-6">
-<Input
-type= "text"
-value={authorName}
-onChange={(e) => setAuthorName(e.target.value)}
-placeholder="Your name"
-className="w-full mb-2"
-/>
+        <Input
+          type="text"
+          value={authorName}
+          onChange={(e) => setAuthorName(e.target.value)}
+          placeholder="Your name"
+          className="w-full mb-2"
+        />
 
-<Input
-type= "text"
-value={newComment}
-onChange={(e) => setNewComment(e.target.value)}
-placeholder="Add a comment"
-className="w-full mb-2"
-/>
-<Button
-onClick={editingCommentId ? handleSavedEditedComment : handleAddComment}
-className="mt-4">
-{editingCommentId ? "Save" :"Submit"}
-</Button>
+        <Input
+          type="text"
+          value={newComment}
+          onChange={(e) => setNewComment(e.target.value)}
+          placeholder="Add a comment"
+          className="w-full mb-2"
+        />
+
+        <Button
+          onClick={editingCommentId ? handleSavedEditedComment : handleAddComment}
+          className="mt-4"
+        >
+          {editingCommentId ? "Save" : "Submit"}
+        </Button>
       </div>
     </div>
   );

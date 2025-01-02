@@ -28,11 +28,11 @@ export default function AuthorCard() {
 
       {/* Author Description */}
       <p className="mt-4 text-black leading-relaxed">
-        "I am Rija Zeeshan, a passionate and creative web developer specializing in crafting engaging and user-friendly interfaces.
+        &quot;I am Rija Zeeshan, a passionate and creative web developer specializing in crafting engaging and user-friendly interfaces.
         With a strong foundation in frontend technologies like TypeScript, HTML, CSS, JavaScript, and Next.js, I bring designs to
         life with precision and aesthetics. My expertise in Tailwind CSS ensures that every project is not only functional but also
         visually appealing. Driven by innovation and a love for problem-solving, I aim to create seamless digital experiences that
-        leave a lasting impression."
+        leave a lasting impression.&quot;
       </p>
 
       {/* Social Media Links */}

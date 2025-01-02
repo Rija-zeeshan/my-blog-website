@@ -1,9 +1,11 @@
 "use client";
 import React from "react";
-import Image from "next/image"; // Import the Image component
+import Image from "next/image";
 import CommentSection from "@/components/CommentSection";
 import AuthorCard from "@/components/AuthorCard";
+import { useParams } from "next/navigation"; // Using useParams for dynamic routes in the app directory
 
+// Sample data (should be replaced with actual data or fetched from an API)
 const posts = [
   {
     id: "1",
@@ -51,16 +53,19 @@ const posts = [
   },
 ];
 
-export default function Post({ params }: { params: { id: string } }) {
-  const { id } = params;
+// Post Component
+export default function Post() {
+  const { id } = useParams(); // Get the post id using useParams() in the /app directory
+
+  // Find the post with the matching ID from the posts array
   const post = posts.find((p) => p.id === id);
 
+  // If no post is found with the given ID, display a "Post Not Found" message
   if (!post) {
-    return (
-      <h2 className="text-2xl font-bold text-center mt-10">Post Not Found</h2>
-    );
+    return <h2 className="text-2xl font-bold text-center mt-10">Post Not Found</h2>;
   }
 
+  // Render paragraphs from the description
   const renderParagraphs = (description: string) => {
     return description.split("\n").map((para, index) => (
       <p key={index} className="mt-4 text-justify">
@@ -75,19 +80,23 @@ export default function Post({ params }: { params: { id: string } }) {
         {post.title}
       </h1>
 
+      {/* Render post image if it exists */}
       {post.image && (
         <Image
           src={post.image}
           alt={post.title}
           className="w-full h-auto rounded-md mt-4"
-          width={800} 
+          width={800}
           height={450}
         />
       )}
 
       <div className="mt-6 text-lg text-slate-700">
+        {/* Render description paragraphs */}
         {renderParagraphs(post.description)}
       </div>
+
+      {/* Render CommentSection and AuthorCard components */}
       <CommentSection postId={post.id} />
       <AuthorCard />
     </div>

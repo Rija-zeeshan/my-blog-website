@@ -1,6 +1,6 @@
 // next.config.js
 module.exports = {
   images: {
-    domains: ['cdn.mywebsite.com'],
+    domains: ['www.shutterstock.com'], // Add the external domain of the image here
   },
 };

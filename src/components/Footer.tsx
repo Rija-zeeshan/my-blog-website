@@ -1,5 +1,5 @@
-
 import React from 'react';
+import Image from 'next/image';
 
 export default function Footer() {
   return (
@@ -7,10 +7,12 @@ export default function Footer() {
       <div className="container px-5 py-1 mx-auto flex items-center sm:flex-row flex-col">
         {/* Logo Section */}
         <a className="flex title-font font-serif items-center md:justify-start justify-center text-gray-900">
-          <img
+          <Image
             src="https://www.shutterstock.com/image-vector/r-logo-vector-template-design-260nw-796633093.jpg"
-            alt="RijaZeeshan Logo"
+            alt="RijaZeeshan Logo for Branding"
             className="w-10 h-10 rounded-full"
+            width={40}
+            height={40}
           />
           <span className="ml-3 text-xl">RijaZeeshan</span>
         </a>
