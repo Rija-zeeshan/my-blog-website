@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+"use client";
+import React, { useState, useEffect } from "react";
 import { Card, CardContent } from "../components/ui/card";
 import { Input } from "../components/ui/input";
 import { Button } from "../components/ui/button";
@@ -7,7 +8,7 @@ interface Comment {
   id: string;
   author: string;
   text: string;
-  postId: string;  // Adding postId to each comment
+  postId: string; // Adding postId to each comment
 }
 
 interface CommentSectionProps {
@@ -19,6 +20,12 @@ export default function CommentSection({ postId }: CommentSectionProps) {
   const [newComment, setNewComment] = useState("");
   const [authorName, setAuthorName] = useState("");
   const [editingCommentId, setEditingCommentId] = useState<string | null>(null);
+  const [mounted, setMounted] = useState(false);
+
+  // This ensures the component only renders on the client side
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   // Handle adding a new comment with postId
   const handleAddComment = () => {
@@ -59,6 +66,11 @@ export default function CommentSection({ postId }: CommentSectionProps) {
       setEditingCommentId(null);
     }
   };
+
+  // Only render the content on the client side
+  if (!mounted) {
+    return null; // This prevents SSR mismatch during hydration
+  }
 
   return (
     <div className="mt-8">
