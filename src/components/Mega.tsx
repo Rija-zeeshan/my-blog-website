@@ -36,14 +36,14 @@ export default function Mega() {
       title: "What is ChatGPT: Strategic Guide for Startups and Development Teams",
       description: "ChatGPT is an advanced AI language model developed by OpenAI. It can generate human-like text, answer questions, assist with writing, and engage in conversations.",
       date: "2024-12-20",
-      image: "../images/slide5.jpeg",  // Corrected image path
+      image: "../images/slide5.jpeg",  
     },
     {
       id: "6",
       title: "How Artificial Intelligence Will Transform Web Development in 2024",
       description: "In 2024, AI is poised to significantly transform web development by automating repetitive tasks, enhancing user experience, and enabling smarter applications.",
       date: "2024-12-20",
-      image: "../images/slide6.jpg",  // Corrected image path
+      image: "../images/slide6.jpg",  
     },
   ];
 
